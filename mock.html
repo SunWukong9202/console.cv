@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CV - Santiago Aguilera</title>
+    <!-- <link rel="stylesheet" href="styles/_main.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+    <script src="https://kit.fontawesome.com/5d0685a413.js" crossorigin="anonymous"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+</head>
+<body class="text-base md:text-lg">
+
+<div 
+x-cloak
+x-show="visible"
+x-data="{image: '', visible: false}"
+@notify.window="image = $event.detail; visible = true"
+class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-0 overflow-y-auto">
+    <div class="relative group" @click.outside="visible = false">
+            <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/60 text-white p-1 rounded-md">
+                <i x-on:click="visible = false"
+                class="fa-solid fa-compress"></i>
+            </div>
+            <img x-bind:src="image" class="w-full max-h-[668px] rounded-md max-w-screen-lg" alt="">
+    </div>
+</div>
+
+
+<div x-data="custom" class="h-screen flex flex-col items-center justify-center p-4 bg-center bg-cover bg-[url('images/02.jpg')]">
+
+    <div cv-scrollbar
+    class="max-w-screen-lg w-full pt-4 shadow-lg text-gray-100 font-mono subpixel-antialiased bg-gray-800/60 rounded-lg leading-normal">
+        <div class="mb-4 px-5 flex">
+            <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-orange-300 rounded-full"></div>
+            <div class="ml-2 h-3 w-3 bg-green-500 rounded-full"></div>
+        </div>
+        <div x-ref="container"
+        class="px-5 pb-6 overflow-y-auto w-full max-h-[568px]">
+
+            <div class="flex mb-4">
+                <span class="text-green-400">santiago:~$</span>
+                <p class="flex-1 typing items-center pl-2">
+                    apt-get resumes 
+                </p>
+            </div>
+
+            <div class="mb-4 text-wrap break-words">
+                <div>Reading package lists... <span class="text-green-400">Done</span></div>
+                <div>Building dependency tree... <span class="text-green-400 ml-4">Done</span></div>
+                <div>The following NEW packages will be installed:</div>
+                <div class="pl-4">resumes</div>
+                <div >Get:1 <span class="text-yellow-500">https://github.com/SunWukong9202/resumes</span> resume [12.3 MB]</div>
+                <div>Fetched 12.3 MB in 1s (12.3 MB/s)</div>
+                <div>Preparing to unpack .../resumes.deb ... <span class="text-green-400">Done</span></div>
+                <div>Unpacking resumes (1.0-1) ... <span class="text-green-400">Done</span></div>
+                <div>Setting up resumes (1.0-1) ... <span class="text-green-400">Done</span></div>
+            </div>
+
+            <div class="flex mb-4">
+                <span class="text-green-400">santiago:~$</span>
+                <p class="flex-1 typing items-center pl-2">
+                    ./dotnet-resume --about_me 
+                </p>
+            </div>
+
+            <!-- <div class="mb-4">
+                I'm Azahel Santiago Aguilera Aguilar a current bachelor of computer science in the Autonomous University of San Luis Potosi in SLP, Mexico.
+                <br><br>
+                I'm currently in the search of an intership and interested in the one you will be holding.
+                <br><br>
+                    <li>Expected Graduation: January 2025</li>
+
+                    <li>Relevant Coursework: Data Structures, Algorithms, Web Development</li>
+                    <li>GPA: 8.0/10</li>
+                </ul>
+            </div> -->
+
+            <div class="mb-4 flex flex-col justify-between gap-4">
+                <p>
+                    I'm Azahel Santiago Aguilera Aguilar a current bachelor of computer science in the Autonomous University of San Luis Potosi in SLP, Mexico.
+                </p>
+                <p>
+                    I'm currently in the search of an intership and interested in the one you will be holding.
+                </p>
+                <ul>
+                    <li>Expected Graduation: January 2025</li>
+
+                    <li>Relevant Coursework: Data Structures, Algorithms, Web Development</li>
+                    <li>GPA: 8.0/10</li>
+                </ul>
+            </div>
+
+            <div class="flex mb-4">
+                <span class="text-green-400">santiago:~$</span>
+                <p class="flex-1 typing items-center pl-2">
+                    ./dotnet-resume --technical-skills 
+                </p>
+            </div>
+
+            <!-- <div class="mb-4">
+                Technical Skills
+                <br><br>
+                - Programming Languages: PHP, JavaScript, C# <br>
+                - Frameworks and Libraries: Livewire, Laravel, Alpine, Vue <br>
+                - CSS Frameworks: Tailwind, Bootstrap <br>
+                - Tools and Technologies: Git <br>
+                - Soft Skills: Problem Solving, Attention to detail and Communication <br><br>
+            </dv> -->
+
+<!-- 
+            <div class="mb-4 flex flex-col justify-between gap-4">
+                <h4>Technical Skills</h4>
+                <ul>
+                    <li>Programming Languages: PHP, JavaScript, C#</li> 
+                    <li>Frameworks and Libraries: Livewire, Laravel, Alpine, Vue</li>
+                    <li>CSS Frameworks: Tailwind, Bootstrap</li>
+                    <li>Tools and Technologies: Git</li>
+                    <li>Soft Skills: Problem Solving, Attention to detail and Communication</li>
+                </ul>
+            </dv>
+
+            <div class="flex mb-4">
+                <span class="text-green-400">santiago:~$</span>
+                <p class="flex-1 typing items-center pl-2">
+                    ./dotnet-resume --projects 
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <div>
+                    <h4>Projects (csharp)</h4>
+                    <p>
+                        Note: All this project's UI were made with winforms designer
+                    </p>
+                </div>
+                
+                Graph Editor<br>
+                - Winforms based application able to crud nodes and edges to build graphs to which then can be applied some algorithms(prim, dijkstra) and other routines (DFS, BFS, Search of Eulerian circuits, etc). Also these graphs can be serialized to files to save them<br><br>
+
+                
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.graph.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+
+                    <img src="/images/graph_editor.png" x-ref="graph" alt="">
+                </div>
+
+                Laberynth Simulation<br>
+                - Winforms based application with pseudo aleatory laberynth generation which use dijkstra algorithm to find the shortest path throught a route of one or various points selected by the user all with animations of route generation and character movement<br><br>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.lab.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/laberynth.png" x-ref="lab" alt="">
+                  </div>
+
+                B+ Tree CRUD persisted with Binary Files<br>
+                - Winforms UI to show to in real time the actions made against the file which represents the tree<br><br>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.bplus.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/bplus.png" x-ref="bplus" alt="">
+                </div>
+                
+                Hash Table CRUD persisted with Binary Files<br>
+                - Winforms UI provided to show the actions made against the hash table<br><br>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.hash.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/hash.png" x-ref="hash" alt="">
+                  </div>
+
+                Atmega 328p Real Time Clock -  
+                <a href="https://github.com/SunWukong9202/atmega328p.clock" class="text-yellow-500">repo:atmega RTC</a>
+                <span class="text-gray-400 animate-pulse"><- Go ahead and see my repo</span><br>
+                - Winforms UI provided to sync and show the passage of time along with some controls which in turn send commands to the microcontroller. Background thread make the serial communication(UASRT) and forward the commands to avoid UI to stop responding<br><br>
+
+                - Avr gcc assembly program running in the microcontroler using interruptions to send the elapsed time and receive the UI commands all over serial communication (USART).<br><br>
+
+                <div class="animate-spin size-6 border-[3px] border-current  mb-4 border-t-transparent text-yellow-500 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.rtc.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/rtc.png" x-ref="rtc" alt="">
+                </div>
+
+                - Some UI actions provided:<br>
+                <div class="ml-2">
+                    - Count down <br>
+                    - Count Up <br>
+                    - Sync With current PC timer <br>
+                    - Stop/Play
+                </div>
+            </div> -->
+
+            <div class="mb-4 flex flex-col justify-between gap-4">
+                <div>
+                    <h4>Projects (csharp)</h4>
+                    <p>
+                        Note: All this project's UI were made with winforms designer
+                    </p>
+                </div>
+                
+                <div>
+                    <p>Graph Editor</p>
+                    - Winforms based application able to crud nodes and edges to build graphs to which then can be applied some algorithms(prim, dijkstra) and other routines (DFS, BFS, Search of Eulerian circuits, etc). Also these graphs can be serialized to files to save them
+                </div>
+                
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group cursor-pointer">
+
+                    <div class="absolute bottom-2 left-2 group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.graph.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+
+                    <img src="/images/graph_editor.png" x-ref="graph" alt="">
+                </div>
+<!-- after a text a %break take effect automatically -->
+                <div>
+                    <p>Laberynth Simulation</p>
+                    - Winforms based application with pseudo aleatory laberynth generation which use dijkstra algorithm to find the shortest path throught a route of one or various points selected by the user all with animations of route generation and character movement
+                </div>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.lab.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/laberynth.png" x-ref="lab" alt="">
+                  </div>
+
+                <!-- <img src="/images/laberynth.png" class="w-full max-w-screen-sm max-h-max mb-4" alt=""> -->
+                <div>
+                    <p>B+ Tree CRUD persisted with Binary Files</p>
+                    - Winforms UI to show to in real time the actions made against the file which represents the tree
+                </div>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.bplus.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/bplus.png" x-ref="bplus" alt="">
+                </div>
+
+                <!-- <img src="/images/bplus.png" class="w-full max-w-screen-sm max-h-max mb-4" alt=""> -->
+                
+                <div>
+                    <p>Hash Table CRUD persisted with Binary Files</p>
+                    - Winforms UI provided to show the actions made against the hash table
+                </div>
+
+                <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                    <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                        <i
+                        @click="$dispatch('notify', $refs.hash.src)"
+                        class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                    </div>
+                    <img src="/images/hash.png" x-ref="hash" alt="">
+                </div>
+
+                <div class="flex flex-col justify-between gap-4">
+                    <p>Atmega 328p Real Time Clock -  
+                        <a href="https://github.com/SunWukong9202/atmega328p.clock" class="text-yellow-500">repo:atmega RTC</a>
+                        <span class="text-gray-400 animate-pulse"><- Go ahead and see my repo</span>
+                    </p>
+                    <p>
+                        This project is made of the following programs
+                    </p>
+                    <p>
+                        - Winforms UI provided to sync and show the passage of time along with some controls which in turn send commands to the microcontroller. Background thread make the serial communication(UASRT) and forward the commands to avoid UI to stop responding
+                    </p>
+                    <p>
+                        - Avr gcc assembly program running in the microcontroller using interruptions to send the elapsed time and receive the UI commands all over serial communication (USART).
+                    </p>
+
+                    <div class="my-8 px-8 flex items-center justify-center">
+                        <div class="animate-spin size-6 border-[3px] border-current mb-4 border-t-transparent text-yellow-500 rounded-full">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <span class="animate-ping">Loading image...</span>
+                    </div>
+                    
+                    <div x-data class="relative w-full max-w-screen-sm max-h-max mb-4 text-black group">
+                        <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/70 text-white p-1 rounded-md">
+                            <i
+                            @click="$dispatch('notify', $refs.rtc.src)"
+                            class="fa-solid fa-expand group-hover:inline-block cursor-pointer"></i>
+                        </div>
+                        <img src="/images/rtc.png" x-ref="rtc" alt="">
+                    </div>
+
+                    <p>
+                        - Some UI actions provided:
+                        <ul class="ml-2">
+                            <li>Count down</li> 
+                            <li>Count Up</li>
+                            <li>Sync With current PC timer</li>
+                            <li>Stop/Play</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div>
+                    <p>Sorting Algorithms Website</p>
+                    - Vue js based project with implementation of some sorting algorithms with the purpose of measure and compare their performance
+                    
+                </div>
+
+            </div>
+    
+            <div class="mt-4 flex">
+                <span class="text-green-400">santiago:~$</span>
+                <input type="text" value="./resume" class="flex-1 bg-transparent outline-none pl-2 w-full">
+            </div>
+
+            <div class="text-slate-400 mt-4">
+                To see the resume again execute './resume' again or HELP to see all the commands available
+            </div>
+            <div class="after:content-['|'] after:animate-cursor">
+                Hola
+            </div>
+
+            <div class="after:content-['\005F'] after:animate-ping">
+                Hola
+            </div>
+        </div>
+    </div>
+  </div>
+    <!-- <script type="module"></script> -->
+     <script src="cv.js"></script>
+    <script>
+        // console.log(cv);
+        function logKeyEvent(event) {
+            console.log(`Key event: ${event.type}, Key: ${event.key}`);
+        }
+
+        document.addEventListener('alpine:init', ()=> {
+
+            
+            Alpine.data('custom', () => ({
+                cursor: "after:content-['\\005F'] after:animate-ping",
+                cmdActive: true,
+                shell_speed: 400,
+                text_speed: 250,
+                shellInput: null,
+                shellImg: null,
+                shellSpin: null,
+                init() {
+                    this.$refs.container.insertAdjacentHTML('beforebegin', '<p class="bg-black text-white text-lg">Hola</p>')
+                    execCommand(cv.resume[0], 0)
+                },
+
+                execCommand(command, index)
+                {
+                    if(this.index < cv.resume.length)
+                    {
+                        let step = 0;
+                        buildElement(command.output, step, () => {
+                            setTimeout(() => {
+                                execCommand(cv.resume[++index]);
+                            }, this.shell_speed);
+                        });
+                    }
+                },
+
+                component: false,
+                nestable: false,
+                elInserted: false,
+
+                buildElement(schema, step, nextCommand, stack = []) 
+                {
+                    if(step < schema.length) 
+                    {
+                        let str = schema[step];
+                        if(str.startsWith('HTML'))
+                        {
+                            [html, tag, classes, attrs] = str.split("|");
+                            let unnest = html.split("%")[1] == 'break';
+                            if(unnest) stack.pop();
+                            let el = document.createElement(tag);
+                            this.nestable = html.split("%")[1] == 'nestable';
+                            this.addClassesAndAttrs(el, classes, attrs);
+
+                            let wrapper = stack[this.peekOf(stack)]
+
+
+                            if(wrapper) 
+                            {
+                                stack[this.peekOf(stack)].append(el); 
+                            }
+
+                            stack.push(el);
+
+                            if(!this.elInserted) {
+                                this.$refs.container.append(stack[0])      
+                            }else this.elInserted = true;
+
+                            setTimeout(() => {
+                                this.buildElement(schema, ++step, nextCommand, stack);
+                            }, 300)
+                            return;
+                        }
+
+                        if(str.startsWith("COMPONENT"))
+                        {
+                            [component, name, classes, attrs, content] = str.split("|");
+                            let unnest = component.split("%")[1] == 'break';
+                            if(unnest) stack.pop();
+                            const rootable = component.split("%")[1] == 'break';
+                            const cv_schema = Array.from(cv.components[name].schema);
+                            setTimeout(() => {
+                                this.component = true;
+                                buildElement(cv_schema, 0, function repeat(_stack) {
+                                    let el = _stack.pop();
+                                    this.addClassesAndAttrs(el, classes, attrs);
+                                    setTimeout(() => {
+                                        this.addClasses(this.cursor, el);
+                                        this.applyTransition(el, content, 0, () => {
+                                            this.removeClasses(this.cursor, el)
+                                            this.buildElement(schema, ++step, nextCommand, stack)
+                                        });
+                                    }, 200)
+                                })
+                            }, 100);
+
+                            return;
+                        }
+                        
+                        let el;
+                        if(this.nestable) {
+                            this.nestable = false;
+                            el = stack[this.peekOf(stack)];
+                        }
+                        else{
+                            el = stack.pop();
+                        }
+
+                        if(this.component) {
+                            this.component = false;
+
+                            el.append(str);
+
+                            setTimeout(() => {
+                                this.buildElement(schema, ++step, nextCommand, stack)
+                            }, 200);
+                            return;
+                        }
+
+                        setTimeout(() => {
+                            this.addClasses(this.cursor, el);
+                            this.applyTransition(el, str, 0, () => {
+                                this.removeClasses(this.cursor, el)
+                                this.buildElement(schema, ++step, nextCommand, stack)
+                            });
+                        }, 200)
+                    }
+                    else {
+                        nextCommand(stack);
+                    }                        
+                },
+
+                applyTransition(el, text, char, next = null) 
+                {
+                    if(char < text.length)
+                    {
+                        el.insertAdjacentHTML('beforeend', text.charAt(char));
+                        // el.append(node);
+                        setTimeout(() => this.applyTransition(el, text, ++char, next), 150);   
+                    }
+                    else {
+                        if(next) next();
+                    }
+                },
+
+                createComponent(schema, stack = [], step = 0, applyEffect = null) {
+                    if(step < schema.length) 
+                    {
+                        let str = schema[step];
+                        if(str.startsWith('HTML'))
+                        {
+                            [html, tag, classes, attrs] = str.split("|");
+                            let rootable = html.split("%")[1] == 'break';
+                            const el = document.createElement(tag);
+                            el.className = classes;
+                            mappedAttrs().forEach(tuple => {
+                                [attr, value] = tuple;
+                                if(!el.hasAttribute(attr))
+                                    el.setAttribute(attr, value);
+                            });
+                            let wrapper = stack[peekOf(stack)]
+                            if(wrapper && !rootable) 
+                            {
+                                stack[peekOf(stack)].append(el); 
+                            }
+
+                            if(rootable) 
+                            {
+                                stack[0].append(el);
+                            }
+
+                            stack.push(el);
+                        }
+                        
+                        const el = stack.pop();
+
+                        el.append(document.createTextNode(str));
+                    }
+                },
+
+            
+                addClassesAndAttrs(el, classes, attrs) {
+                    this.addClasses(classes, el);
+                    this.mappedAttrs(attrs).forEach(tuple => {
+                        [attr, value] = tuple;
+                        if(!el.hasAttribute(attr))
+                            el.setAttribute(attr, value);
+                    });
+                    return el;
+                },
+
+
+                addClasses(strClass, el) {
+                    const classes = strClass?.split(" ") ?? [];
+                    classes.forEach(cls => el.classList.add(cls));
+                },
+
+                removeClasses(strClass, el)
+                {
+                    const classes = strClass.split(" ");
+                    classes.forEach(cls => el.classList.remove(cls));
+                },
+
+                peekOf: (stack) => stack.length - 1,
+
+                mappedAttrs(attrs)
+                {
+                    return attrs?.split(" ")
+                        ?.map(tuple => [tuple.split("=")[0], tuple.split("=")[1]]) ?? [];
+                }
+            }))
+
+            Alpine.data('transitioned', () => ({
+                transionable: '',
+                index: 1,
+                timerId: null,
+                init()
+                {
+                    console.log(this.$el)
+                    this.transionable = this.$el.innerHTML;
+                    this.$el.innerHTML = '';
+                    this.index = 1;
+                    this.$el.classList.add("after:content-['|']", 'after:animate-pulse')
+                    this.clear = setInterval(() => this.transition(), 250)
+                },
+
+                transition() 
+                {
+                    if(this.index < this.transionable.length)
+                    {
+                        this.$el.innerHTML = this.transionable.substring(0, this.index++)
+                        return;
+                    }
+                    clearInterval(this.timerId)
+                }
+            })),
+
+            Alpine.data('focusable', () => ({
+                init()
+                {
+                    this.$el.focus()
+                    this.$el.add()
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
