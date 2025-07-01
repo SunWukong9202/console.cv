@@ -125,16 +125,15 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                 },
 
                 askLanguage() {
-                    const browserLang = navigator.language.startsWith('es') ? 'es' : 'en';
-                    
-                    const choice = browserLang == 'es' 
-                    if(browserLang == 'es') {
-                        const es = confirm(`Use detected language: Español.\n\nPress 'OK' to confirm\n\nPress 'Cancel' to use Ingles.`)
-
-                        return es ? 'es' : 'en'
+                    if (navigator.language.startsWith('es')) {
+                        const es = confirm(
+                            `Idioma detectado: Español.\n\nPresiona 'Aceptar' para confirmar.\n\nPresiona 'Cancelar' para usar Inglés.`
+                        );
+                        return es ? 'es' : 'en';
                     } else {
-                        const en = confirm(`Use detected language: English.\n\nPress 'OK' to confirm\n\nPress 'Cancel' to use Spanish.`);
-
+                        const en = confirm(
+                            `Detected language: English.\n\nPress 'OK' to confirm.\n\nPress 'Cancel' to use Spanish.`
+                        );
                         return en ? 'en' : 'es';
                     }
                 },

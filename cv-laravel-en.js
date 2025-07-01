@@ -161,7 +161,6 @@ const cv = {
             ]
         },
 
-
         {
             "command": "./laravel-resume --goodbye",
             "output": [
@@ -170,16 +169,16 @@ const cv = {
                 "HTML|p",
                 "🙏 Thank you for taking the time to review my resume.",
                 "HTML|p",
-                "I’m truly excited about the opportunity to contribute, learn, and grow within your team. I’m confident that my passion for web development and my hands-on experience with Laravel and modern technologies make me a strong candidate for a junior or internship role.",
+                "I'm truly excited about the opportunity to contribute, learn, and grow within your team. My passion for web development and hands-on experience with Laravel make me a strong candidate for a junior position or internship.",
                 "HTML|p",
-                "If you have any questions or would like to see more, feel free to reach out — I’d love to talk!",
+                "If you have any questions or would like to know more, feel free to reach out!",
                 "HTML|p",
-                "HTML|a|text-green-400|href=mailto:azahelsantiagoaguileraaguilar@gmail.com",
+                "HTML|a|text-green-400 break-words|href=mailto:azahelsantiagoaguileraaguilar@gmail.com",
                 "📧 azahelsantiagoaguileraaguilar@gmail.com",
                 "HTML|span|text-gray-400 animate-pulse",
                 "<- Click to send an email",
                 "HTML|p",
-                "HTML|a|text-blue-400|href=https://github.com/SunWukong9202 target=_blank rel=noopener",
+                "HTML|a|text-blue-400 break-words|href=https://github.com/SunWukong9202 target=_blank rel=noopener",
                 "🔗 github.com/SunWukong9202",
                 "HTML|span|text-gray-400 animate-pulse",
                 "<- View my GitHub profile",

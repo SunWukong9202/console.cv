@@ -173,12 +173,12 @@ const cv_es = {
                 "HTML|p",
                 "Si tienes preguntas o te gustaría conocer más, no dudes en contactarme.",
                 "HTML|p",
-                "HTML|a|text-green-400|href=mailto:azahelsantiagoaguileraaguilar@gmail.com",
+                "HTML|a|text-green-400 break-words|href=mailto:azahelsantiagoaguileraaguilar@gmail.com",
                 "📧 azahelsantiagoaguileraaguilar@gmail.com",
                 "HTML|span|text-gray-400 animate-pulse",
                 "<- Haz clic para enviar un correo",
                 "HTML|p",
-                "HTML|a|text-blue-400|href=https://github.com/SunWukong9202 target=_blank rel=noopener",
+                "HTML|a|text-blue-400 break-words|href=https://github.com/SunWukong9202 target=_blank rel=noopener",
                 "🔗 github.com/SunWukong9202",
                 "HTML|span|text-gray-400 animate-pulse",
                 "<- Ver perfil de GitHub",
@@ -187,6 +187,7 @@ const cv_es = {
                 "COMPONENT%break|spin"
             ]
         }
+
     ]
 };
 
