@@ -92,7 +92,7 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
     </div>
   </div>
     <!-- <script type="module"></script> -->
-     <script src="cv.js"></script>
+     <!-- <script src="cv-laravel.js"></script> -->
     <script>
         // console.log(cv);
         function logKeyEvent(event) {
@@ -106,8 +106,37 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                 cursor: "after:content-['\\2588'] after:animate-ping",
                 shell_speed: 300,
                 text_speed: 50,
+                cv: 'cv-laravel',
+
                 init() {
-                    this.execCommand(cv.resume[0], 0)
+                    var lang = this.askLanguage();
+                    this.createAndAppendScript(`${this.cv}-${lang}.js`, () => {
+                        this.execCommand(cv.resume[0], 0)
+                    });
+                },
+
+                createAndAppendScript(src, startCV) {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    document.head.appendChild(script);
+
+                    script.onload = () => startCV(); // Waits until script is fully loaded
+                    script.onerror = () => alert(new Error(`Failed to load script: ${src}`));
+                },
+
+                askLanguage() {
+                    const browserLang = navigator.language.startsWith('es') ? 'es' : 'en';
+                    
+                    const choice = browserLang == 'es' 
+                    if(browserLang == 'es') {
+                        const es = confirm(`Use detected language: Español.\n\nPress 'OK' to confirm\n\nPress 'Cancel' to use Ingles.`)
+
+                        return es ? 'es' : 'en'
+                    } else {
+                        const en = confirm(`Use detected language: English.\n\nPress 'OK' to confirm\n\nPress 'Cancel' to use Spanish.`);
+
+                        return en ? 'en' : 'es';
+                    }
                 },
 
                 execCommand(command, index)
