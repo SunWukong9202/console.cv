@@ -71,7 +71,7 @@ const cv = {
                 "My experience includes building full-stack web applications with Laravel, Livewire, and Tailwind CSS, as well as working on inventory systems, appointment platforms, and admin dashboards during my university internship.",
                 "HTML|ul",
                 "HTML|li",
-                "📅 Expected Graduation: January 2025",
+                "📅 Expected Graduation: January 2026",
                 "HTML|li",
                 "🎓 Relevant Coursework: Data Structures, Algorithms, Web Development",
                 "HTML|li",

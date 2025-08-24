@@ -109,19 +109,51 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                 cv: 'cv-laravel',
 
                 init() {
-                    var lang = this.askLanguage();
-                    this.createAndAppendScript(`${this.cv}-${lang}.js`, () => {
+                    const searchParams = new URLSearchParams(window.location.search);
+
+                    const params = Object.fromEntries(searchParams.entries());
+                    var lang;
+
+                    if(params.lang == undefined || !['es', 'en'].includes(params.lang)) {
+                        lang = getDefaultLang();
+                    } else {
+                        lang = params.lang;
+                    }
+
+                    if(params.cv == undefined) {
+                        this.cv = 'cv';
+                    } else {
+                        this.cv = params.cv;
+                    }
+
+                    // var lang = this.askLanguage();
+                    this.createAndAppendScript(`${this.cv}-${lang}.js`, 
+                    () => {
                         this.execCommand(cv.resume[0], 0)
+                    }, 
+                    (src) => {
+                        console.log(new Error(`Failed to load cv: ${src}, loading default cv`))
+                        this.cv = 'cv-es.js';
+                        this.createAndAppendScript(, () => {
+                            this.execCommand(cv.resume[0], 0)
+                        }, () => { 
+                            console.log(new Error(`Failed to load default cv`))
+                        });
                     });
+
                 },
 
-                createAndAppendScript(src, startCV) {
+                createAndAppendScript(src, startCV, onError) {
                     const script = document.createElement('script');
                     script.src = src;
                     document.head.appendChild(script);
 
                     script.onload = () => startCV(); // Waits until script is fully loaded
-                    script.onerror = () => alert(new Error(`Failed to load script: ${src}`));
+                    script.onerror = () => onError(src);
+                },
+
+                getDefaultLang() {
+                    return navigator.language.startsWith('es') ? 'es' : 'en';
                 },
 
                 askLanguage() {
