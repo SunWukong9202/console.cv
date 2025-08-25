@@ -151,7 +151,7 @@ const cv = {
                 "HTML|a|text-yellow-500|href=https://sunwukong9202.github.io/Sorting/ target=_blank rel=noopener",
                 "live site",
                 "HTML|span|text-gray-400 animate-pulse",
-                "<- Try it out",
+                " <- Try it out",
                 "HTML%break|p",
                 "- Vue.js web app that visualizes sorting algorithms in real time.",
                 "HTML|p",

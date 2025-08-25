@@ -71,7 +71,7 @@ const cv_es = {
                 "Tengo experiencia desarrollando aplicaciones web full-stack con Laravel, Livewire y Tailwind CSS, y he trabajado en sistemas de inventario, plataformas de citas y paneles administrativos durante mi estancia de prácticas universitarias.",
                 "HTML|ul",
                 "HTML|li",
-                "📅 Fecha estimada de graduación: Enero 2025",
+                "📅 Fecha estimada de graduación: Enero 2026",
                 "HTML|li",
                 "🎓 Materias relevantes: Estructuras de Datos, Algoritmos, Desarrollo Web",
                 "HTML|li",

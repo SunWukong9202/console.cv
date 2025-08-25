@@ -60,19 +60,31 @@
 <body x-cloak class="text-base md:text-lg">
 
 <div 
-x-cloak
-x-show="visible"
-x-data="{image: '', visible: false}"
-@notify.window="image = $event.detail; visible = true"
-class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-0 overflow-y-auto">
+    x-cloak
+    x-show="visible"
+    x-data="{ url: '', visible: false, isVideo(url) { return url.match(/\.(mp4|webm|ogg)$/i); } }"
+    @notify.window="url = $event.detail; visible = true"
+    class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-0 overflow-y-auto"
+>
     <div class="relative group" @click.outside="visible = false">
-            <div class="absolute bottom-2 left-2 cursor-pointer group-hover:inline-flex hidden bg-black/60 text-white p-1 rounded-md">
-                <i x-on:click="visible = false"
-                class="fa-solid fa-compress"></i>
-            </div>
-            <img x-bind:src="image" class="w-full max-h-[668px] rounded-md max-w-screen-lg" alt="">
+        <div class="absolute bottom-2 left-2 right-2 mx-auto flex items-center justify-center w-10 h-10 bg-black/60 text-white rounded-md group-hover:flex hidden cursor-pointer">
+            <i 
+                x-on:click="visible = false"
+                :class="isVideo(url) ? 'fa-solid fa-circle-play' : 'fa-solid fa-compress'"
+                class="text-lg"
+            ></i>
+        </div>
+
+
+        <template x-if="isVideo(url)">
+            <video x-bind:src="url" class="w-full max-h-[480px]  rounded-md max-w-screen-lg " controls autoplay muted loop></video>
+        </template>
+        <template x-if="!isVideo(url)">
+            <img x-bind:src="url" class="w-full max-h-[480px] rounded-md max-w-screen-lg" alt="">
+        </template>
     </div>
 </div>
+
 
 
 <div x-data="custom" class="h-screen flex flex-col items-center justify-center p-4 bg-center bg-cover bg-[url('images/02.jpg')]">
@@ -84,12 +96,14 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
             <div class="ml-2 h-3 w-3 bg-orange-300 rounded-full"></div>
             <div class="ml-2 h-3 w-3 bg-green-500 rounded-full"></div>
         </div>
-        <div x-ref="container"
 
-        class="px-5 pb-6 overflow-y-auto w-full  max-h-[568px] sm:max-h-[468px] scrollbar-thin scrollbar-thumb scrollbar-thumb-rounded scrollbar-track">
+        <div x-ref="container"
+        x-on:scroll="autoScroll = false"
+        class="px-5 pb-6 overflow-y-auto w-full max-h-[468px] sm:max-h-[568px] scrollbar-thin scrollbar-thumb scrollbar-thumb-rounded scrollbar-track">
 
         </div>
     </div>
+    
   </div>
     <!-- <script type="module"></script> -->
      <!-- <script src="cv-laravel.js"></script> -->
@@ -106,7 +120,8 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                 cursor: "after:content-['\\2588'] after:animate-ping",
                 shell_speed: 300,
                 text_speed: 50,
-                cv: 'cv-laravel',
+                fileName: 'cv-laravel',
+                autoScroll: true,
 
                 init() {
                     const searchParams = new URLSearchParams(window.location.search);
@@ -121,23 +136,22 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                     }
 
                     if(params.cv == undefined) {
-                        this.cv = 'cv';
+                        this.fileName = 'cv';
                     } else {
-                        this.cv = params.cv;
+                        this.fileName = params.cv;
                     }
 
                     // var lang = this.askLanguage();
-                    this.createAndAppendScript(`${this.cv}-${lang}.js`, 
+                    this.createAndAppendScript(`${this.fileName}-${lang}.js`, 
                     () => {
                         this.execCommand(cv.resume[0], 0)
-                    }, 
-                    (src) => {
-                        console.log(new Error(`Failed to load cv: ${src}, loading default cv`))
-                        this.cv = 'cv-es.js';
-                        this.createAndAppendScript(, () => {
+                    }, (src) => {
+                        console.log(new Error(`Failed to load cv: ${src}, loading easter egg cv`))
+                        this.fileName = `easter-egg-${lang}.js`;
+                        this.createAndAppendScript(this.fileName, () => {
                             this.execCommand(cv.resume[0], 0)
                         }, () => { 
-                            console.log(new Error(`Failed to load default cv`))
+                            console.log(new Error(`Failed to load easter egg`))
                         });
                     });
 
@@ -193,7 +207,10 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                 {
                     if(step < schema.length) 
                     {
-                        this.$refs.container.scrollTop = this.$refs.container.scrollHeight
+                        if(this.autoScroll) {
+                            this.$refs.container.scrollTop = this.$refs.container.scrollHeight
+                        }
+                        
                         let str = schema[step];
                         if(str.startsWith('HTML'))
                         {
@@ -318,7 +335,9 @@ class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-
                     if(char < text.length)
                     {
                         el.insertAdjacentHTML('beforeend', text.charAt(char));
-                        this.$refs.container.scrollTop = this.$refs.container.scrollHeight
+                        if(this.autoScroll) {
+                            this.$refs.container.scrollTop = this.$refs.container.scrollHeight
+                        }
                         // el.append(node);
                         setTimeout(() => this.applyTransition(el, text, ++char, next), textSpeed);   
                     }
