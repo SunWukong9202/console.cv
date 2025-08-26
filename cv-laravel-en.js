@@ -123,7 +123,7 @@ const cv = {
                 "HTML|span|text-gray-400 animate-pulse",
                 " <- Click to watch the user manual",
                 "HTML%break|p",
-                "HTML|a|text-yellow-500|href=https://ambigest.up.railway.app/",
+                "HTML|a|text-yellow-500|href=https://ambigest.up.railway.app/ target=_blank rel=noopener",
                 "live demo",
                 "HTML|span|text-gray-400 animate-pulse",
                 " <- Try it online",
