@@ -58,33 +58,58 @@
 
 </head>
 <body x-cloak class="text-base md:text-lg">
-
 <div 
     x-cloak
     x-show="visible"
-    x-data="{ url: '', visible: false, isVideo(url) { return url.match(/\.(mp4|webm|ogg)$/i); } }"
+    x-data="{
+        url: '', 
+        visible: false, 
+        isVideo(url) { return url.match(/\.(mp4|webm|ogg)$/i); },
+        isPdf(url) { return url.match(/\.pdf$/i); }
+    }"
     @notify.window="url = $event.detail; visible = true"
     class="p-4 w-full bg-black/80 flex items-center justify-center z-20 fixed inset-0 overflow-y-auto"
 >
     <div class="relative group" @click.outside="visible = false">
-        <div class="absolute bottom-2 left-2 right-2 mx-auto flex items-center justify-center w-10 h-10 bg-black/60 text-white rounded-md group-hover:flex hidden cursor-pointer">
-            <i 
-                x-on:click="visible = false"
-                :class="isVideo(url) ? 'fa-solid fa-circle-play' : 'fa-solid fa-compress'"
-                class="text-lg"
-            ></i>
-        </div>
 
-
+        <!-- Video -->
         <template x-if="isVideo(url)">
-            <video x-bind:src="url" class="w-full max-h-[480px]  rounded-md max-w-screen-lg " controls autoplay muted loop></video>
+            <video 
+                x-bind:src="url" 
+                class="w-full max-h-[480px] rounded-md max-w-screen-lg" 
+                controls autoplay muted loop>
+            </video>
         </template>
-        <template x-if="!isVideo(url)">
-            <img x-bind:src="url" class="w-full max-h-[480px] rounded-md max-w-screen-lg" alt="">
+
+        <!-- PDF -->
+        <template x-if="isPdf(url)">
+            <!-- <embed x-bind:src="url" type="application/pdf" width="100%" height="600px" /> -->
+            <!-- <iframe x-bind:src="url" width="1080px" height="720px"> -->
+            <iframe 
+            x-bind:src="url" 
+            class="
+                w-[320px] h-[480px]       <!-- default: small phones -->
+                sm:w-[480px] sm:h-[640px] <!-- larger phones / small tablets -->
+                md:w-[768px] md:h-[576px] <!-- tablets -->
+                lg:w-[1024px] lg:h-[640px] <!-- laptops -->
+                xl:w-[1280px] xl:h-[720px] <!-- desktops -->
+                2xl:w-[1536px] 2xl:h-[864px] <!-- big monitors -->
+            ">
+            This browser does not support PDFs. Please download the PDF to view it: 
+            <a x-bind:href="url">Download PDF</a>.
+            </iframe>
+
+        </template>
+
+        <!-- Image -->
+        <template x-if="!isVideo(url) && !isPdf(url)">
+            <img 
+                x-bind:src="url" 
+                class="w-full max-h-[480px] rounded-md max-w-screen-lg" 
+                alt="">
         </template>
     </div>
 </div>
-
 
 
 <div x-data="custom" class="h-screen flex flex-col items-center justify-center p-4 bg-center bg-cover bg-[url('images/02.jpg')]">
@@ -98,7 +123,6 @@
         </div>
 
         <div x-ref="container"
-        x-on:scroll="autoScroll = false"
         class="px-5 pb-6 overflow-y-auto w-full max-h-[468px] sm:max-h-[568px] scrollbar-thin scrollbar-thumb scrollbar-thumb-rounded scrollbar-track">
 
         </div>
@@ -122,15 +146,39 @@
                 text_speed: 50,
                 fileName: 'cv-laravel',
                 autoScroll: true,
+                programmaticScroll: false,
+                lastScroll: 0,
+                spinning: false,
+                whiteList: [],
 
                 init() {
+
+                    const OFFSET = 5;
+
+                    this.$refs.container.addEventListener('scroll', (event) => {
+                        const currentScroll = event.target.scrollTop;
+
+                        if (this.autoScroll && currentScroll < this.lastScroll - OFFSET) {
+                            this.autoScroll = false;
+
+                            // Optional: restore autoscroll after 5s
+                            setTimeout(() => {
+                                this.autoScroll = true;
+                                this.spinning = false;
+                            }, this.spinning ? 
+                            0 : 5000);
+                        }
+
+                        this.lastScroll = currentScroll;
+                    });
+
                     const searchParams = new URLSearchParams(window.location.search);
 
                     const params = Object.fromEntries(searchParams.entries());
                     var lang;
 
                     if(params.lang == undefined || !['es', 'en'].includes(params.lang)) {
-                        lang = getDefaultLang();
+                        lang = this.getDefaultLang();
                     } else {
                         lang = params.lang;
                     }
@@ -141,9 +189,18 @@
                         this.fileName = params.cv;
                     }
 
+                    if(params.just != undefined) {
+                        const sections = params.just.split(",").map(s => s.trim());
+                        this.whiteList = sections;
+                    }
+
                     // var lang = this.askLanguage();
                     this.createAndAppendScript(`${this.fileName}-${lang}.js`, 
                     () => {
+                        if(this.whiteList.length > 0) {
+                            this.cvWithJustListedSections(cv);
+                        }
+
                         this.execCommand(cv.resume[0], 0)
                     }, (src) => {
                         console.log(new Error(`Failed to load cv: ${src}, loading easter egg cv`))
@@ -155,6 +212,20 @@
                         });
                     });
 
+                },
+
+                cvWithJustListedSections(cv) {
+                    const sections = [];
+
+                    for(section of cv.resume) {
+                        for(item of this.whiteList) {
+                            if(section.command.includes(item)) {
+                                sections.push(section);
+                            }
+                        }
+                    }
+
+                    cv.resume = sections;
                 },
 
                 createAndAppendScript(src, startCV, onError) {
@@ -191,7 +262,7 @@
                         let step = 0;
                         this.buildElement(command.output, step, () => {
                             setTimeout(() => {
-                                console.log("h");
+                                // console.log("h");
                                 index++;
                                 this.execCommand(cv.resume[index], index);
                             }, this.shell_speed);
@@ -205,11 +276,13 @@
 
                 buildElement(schema, step, nextCommand, stack = []) 
                 {
+                    if(this.autoScroll) {
+                        this.$refs.container.scrollTop = this.$refs.container.scrollHeight;
+                    }
+                    
                     if(step < schema.length) 
                     {
-                        if(this.autoScroll) {
-                            this.$refs.container.scrollTop = this.$refs.container.scrollHeight
-                        }
+                        
                         
                         let str = schema[step];
                         if(str.startsWith('HTML'))
@@ -258,7 +331,10 @@
                                     this.addClassesAndAttrs(el, classes, attrs);
                                     if(!content) {
                                         setTimeout(() => {
-                                            if(name == 'spin') _stack[0].remove();
+                                            if(name == 'spin') {
+                                                _stack[0].remove();
+                                                this.spinning = true;
+                                            }
                 
                                             this.buildElement(schema, ++step, nextCommand, stack)
                                         }, 200)
@@ -380,11 +456,15 @@
 
                 peekOf: (stack) => stack.length - 1,
 
-                mappedAttrs(attrs, separator = " ")
-                {
-                    return attrs?.split(separator)
-                        ?.map(tuple => [tuple.split("=")[0], tuple.split("=")[1]]) ?? [];
+                mappedAttrs(attrs, separator = " ") {
+                return attrs?.split(separator)
+                    ?.map(tuple => {
+                    let i = tuple.indexOf("=");
+                    if (i === -1) return [tuple, true]; // flag for boolean attrs
+                    return [tuple.slice(0, i), tuple.slice(i + 1)];
+                    }) ?? []; 
                 }
+
             }))
         })
     </script>
